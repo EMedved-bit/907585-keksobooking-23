@@ -1,0 +1,31 @@
+//Вспомогательные функции
+
+function getRandomNumber(min, max) {
+  if (min < 0 || max < 0) {
+    throw 'Ошибка! Значения могут быть только положительными!';
+  }
+
+  if (max <= min) {
+    throw 'Максимальное значение не может быть меньше минимального!';
+  }
+
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+getRandomNumber(1, 100);
+
+function getFloatNumber(min, max, count = 0) {
+  if (min < 0 || max < 0) {
+    throw 'Ошибка! Значения могут быть только положительными!';
+  }
+
+  if (max <= min) {
+    throw 'Максимальное значение не может быть меньше минимального!';
+  }
+
+  const number = (max - min) * Math.random() + min;
+
+  return Number(number.toFixed(count));
+}
+
+getFloatNumber(10, 25, 2);
