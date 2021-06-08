@@ -25,7 +25,10 @@ function getFloatNumber(min, max, count = 0) {
 }
 
 function shuffle(array) {
-  array.sort(() => Math.random() - 0.5);
+  const cloneArray = array.slice(0);
+  cloneArray.sort(() => Math.random() - 0.5);
+
+  return cloneArray;
 }
 
 const TYPES = [
@@ -51,6 +54,12 @@ const FEATURES = [
   'conditioner',
 ];
 
+const TIME = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
 const ADVERTS_COUNT = 10;
 
 function getRandomArrayElement(elements) {
@@ -62,8 +71,7 @@ function createAdvert() {
   const lat = getFloatNumber(35.65, 35.7, 5);
   const lng = getFloatNumber(139.7, 139.8, 5);
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
-  shuffle(FEATURES);
-  const features = FEATURES.slice(0, featuresRandomIndex);
+  const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
   return {
     author: {
@@ -76,11 +84,11 @@ function createAdvert() {
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
       quests: getRandomNumber(1, 10),
-      checkin: `1${getRandomNumber(2, 4)}:00`,
-      checkout: `1${getRandomNumber(2, 4)}:00`,
-      features: features,
+      checkin: getRandomArrayElement(TIME),
+      checkout: getRandomArrayElement(TIME),
+      features,
       description: 'Светлое, просторное',
-      photos: new Array(getRandomNumber(1, 10)).fill(null).map(() => getRandomArrayElement(PHOTOS)),
+      photos: new Array(getRandomNumber(1, 3)).fill(null).map(() => getRandomArrayElement(PHOTOS)),
     },
     location: {
       lat,
