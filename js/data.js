@@ -50,7 +50,7 @@ function createAdvert() {
       price: getRandomNumber(300, 10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
-      quests: getRandomNumber(1, 10),
+      guests: getRandomNumber(1, 10),
       checkin: getRandomArrayElement(TIME),
       checkout: getRandomArrayElement(TIME),
       features,
