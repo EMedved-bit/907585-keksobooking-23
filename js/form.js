@@ -104,3 +104,14 @@ guestsNumberSelect.addEventListener('change', (evt) => {
 
   guestsNumberSelect.reportValidity();
 });
+
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
+
+timeinSelect.addEventListener('change', (evt) => {
+  timeoutSelect.value = evt.target.value;
+});
+
+timeoutSelect.addEventListener('change', (evt) => {
+  timeinSelect.value = evt.target.value;
+});
