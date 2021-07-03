@@ -1,12 +1,6 @@
-import {createAdverts} from './data.js';
-
-const map = document.querySelector('#map-canvas');
-
 const advertsTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-const adverts = createAdverts(1);
 
 const TYPES = {
   palace: 'Дворец',
@@ -24,9 +18,7 @@ function changeValue (element, value, isAdd = true) {
   }
 }
 
-const similarListFragment = document.createDocumentFragment();
-
-adverts.forEach((advert) => {
+function createAdvertElement(advert) {
   const advertElement = advertsTemplate.cloneNode(true);
   changeValue(advertElement.querySelector('.popup__title'), advert.offer.title);
   changeValue(advertElement.querySelector('.popup__text--address'), advert.offer.address);
@@ -80,7 +72,7 @@ adverts.forEach((advert) => {
     advertElement.querySelector('.popup__avatar').src = advert.author.avatar;
   }
 
-  similarListFragment.appendChild(advertElement);
-});
+  return advertElement;
+}
 
-map.appendChild(similarListFragment);
+export { createAdvertElement };
