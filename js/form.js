@@ -3,6 +3,7 @@ const formElements = adForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
 const mapFormElements = mapForm.querySelectorAll('select');
 const mapFormFieldset = mapForm.querySelector('fieldset');
+const adAddressInput = adForm.querySelector('#address');
 
 function disablePage () {
   adForm.classList.add('ad-form--disabled');
@@ -21,7 +22,7 @@ function disablePage () {
 function activatePage () {
   adForm.classList.remove('ad-form--disabled');
   mapForm.classList.remove('map__filters--disabled');
-  mapFormFieldset.remove.Attribute('disabled');
+  mapFormFieldset.removeAttribute('disabled');
 
   formElements.forEach((element) => {
     element.removeAttribute('disabled');
@@ -114,4 +115,8 @@ timeinSelect.addEventListener('change', (evt) => {
 
 timeoutSelect.addEventListener('change', (evt) => {
   timeinSelect.value = evt.target.value;
+});
+
+adAddressInput.addEventListener('keypress', (evt) => {
+  evt.preventDefault();
 });

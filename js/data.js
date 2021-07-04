@@ -40,9 +40,11 @@ function createAdvert() {
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
+  const avatarNumber = getRandomNumber(1, 11);
+
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomNumber(1, 10)}.png`,
+      avatar: `img/avatars/user${avatarNumber < 10 ? `0${avatarNumber}` : avatarNumber}.png`,
     },
     offer: {
       title: 'Сдается жилье',
