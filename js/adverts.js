@@ -38,7 +38,7 @@ function createAdvertElement(advert) {
 
   const featuresListElement = advertElement.querySelector('.popup__features');
 
-  if (advert.offer.features.length) {
+  if (advert.offer.features && advert.offer.features.length) {
     const modifires = advert.offer.features.map((feature) => `popup__feature--${feature}`);
 
     featuresListElement.querySelectorAll('.popup__feature')
@@ -57,7 +57,7 @@ function createAdvertElement(advert) {
   const popupPhotos = advertElement.querySelector('.popup__photos');
   const image = popupPhotos.querySelector('.popup__photo');
 
-  if (advert.offer.photos.length) {
+  if (advert.offer.photos && advert.offer.photos.length) {
     advert.offer.photos.forEach((photo) => {
       const imageElement = image.cloneNode();
       imageElement.src = photo;

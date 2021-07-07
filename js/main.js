@@ -1,5 +1,7 @@
-import { disablePage, activatePage } from './form.js';
-import { resetMap, map } from './map.js';
+import { disablePage, activatePage, setAdFormSubmit } from './form.js';
+import { createMarker, map } from './map.js';
+import { showErrorPopup, showSuccessPopup } from './util.js';
+import { getData } from './api.js';
 
 disablePage();
 
@@ -12,13 +14,17 @@ map
     lng: 139.69171,
   }, 12);
 
-const submitButton = document.querySelector('.ad-form__submit');
-const resetButton = document.querySelector('.ad-form__reset');
+function createMarkers(adverts) {
+  adverts.forEach((advert) => {
+    createMarker(advert);
+  });
+}
 
-submitButton.addEventListener('click', () => {
-  resetMap();
-});
+function dataFail() {
+  document.querySelector('.error-message').classList.remove('hidden');
+}
 
-resetButton.addEventListener('click', () => {
-  resetMap();
-});
+getData(createMarkers,dataFail);
+
+setAdFormSubmit(showSuccessPopup, showErrorPopup);
+

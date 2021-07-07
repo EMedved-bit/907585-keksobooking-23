@@ -1,44 +1,51 @@
-function getRandomNumber(min, max) {
-  if (min < 0 || max < 0) {
-    throw 'Ошибка! Значения могут быть только положительными!';
-  }
+/* eslint-disable no-use-before-define */
+const successPopup = document.querySelector('.success');
+const errorPopup = document.querySelector('.error');
+const errorButton = errorPopup.querySelector('.error__button');
 
-  if (max <= min) {
-    throw 'Максимальное значение не может быть меньше минимального!';
+function onEscKeydown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideSuccessPopup();
+    hideErrorPopup();
   }
-
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
-function getFloatNumber(min, max, count = 0) {
-  if (min < 0 || max < 0) {
-    throw 'Ошибка! Значения могут быть только положительными!';
-  }
-
-  if (max <= min) {
-    throw 'Максимальное значение не может быть меньше минимального!';
-  }
-
-  const number = (max - min) * Math.random() + min;
-
-  return Number(number.toFixed(count));
+function onDocumentClick(evt) {
+  evt.preventDefault();
+  hideSuccessPopup();
+  hideErrorPopup();
 }
 
-function shuffle(array) {
-  const cloneArray = array.slice(0);
-  cloneArray.sort(() => Math.random() - 0.5);
-
-  return cloneArray;
+function clickErrorButton(evt) {
+  evt.preventDefault();
+  hideErrorPopup();
 }
 
-function getRandomArrayElement(elements) {
-
-  return elements[getRandomNumber(0, elements.length - 1)];
+function showSuccessPopup() {
+  successPopup.classList.remove('hidden');
+  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('click', onDocumentClick);
 }
 
-export {
-  getRandomNumber,
-  getFloatNumber,
-  getRandomArrayElement,
-  shuffle
-};
+function hideSuccessPopup() {
+  successPopup.classList.add('hidden');
+  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('click', onDocumentClick);
+}
+
+function showErrorPopup() {
+  errorPopup.classList.remove('hidden');
+  errorButton.addEventListener('click', clickErrorButton);
+  document.addEventListener('keydown', onEscKeydown);
+  document.addEventListener('click', onDocumentClick);
+}
+
+function hideErrorPopup() {
+  errorPopup.classList.add('hidden');
+  errorButton.removeEventListener('click', clickErrorButton);
+  document.removeEventListener('keydown', onEscKeydown);
+  document.removeEventListener('click', onDocumentClick);
+}
+
+export { showSuccessPopup, showErrorPopup };
