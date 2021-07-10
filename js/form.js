@@ -1,9 +1,13 @@
+import { resetMap } from './map.js';
+import { sendData } from './api.js';
+
 const adForm = document.querySelector('.ad-form');
 const formElements = adForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
 const mapFormElements = mapForm.querySelectorAll('select');
 const mapFormFieldset = mapForm.querySelector('fieldset');
 const adAddressInput = adForm.querySelector('#address');
+const resetButton = document.querySelector('.ad-form__reset');
 
 function disablePage () {
   adForm.classList.add('ad-form--disabled');
@@ -32,8 +36,6 @@ function activatePage () {
     element.removeAttribute('disabled');
   });
 }
-
-export {disablePage, activatePage};
 
 const addTitleInput = adForm.querySelector('#title');
 const MIN_NAME_LENGTH = 30;
@@ -120,3 +122,26 @@ timeoutSelect.addEventListener('change', (evt) => {
 adAddressInput.addEventListener('keypress', (evt) => {
   evt.preventDefault();
 });
+
+function setAdFormSubmit(onSuccess, onFail) {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => {
+        adForm.reset();
+        resetMap();
+        onSuccess();
+      },
+      () => onFail(),
+      new FormData(evt.target),
+    );
+  });
+}
+
+resetButton.addEventListener('click', () => {
+  adForm.reset();
+  resetMap();
+});
+
+export { disablePage, activatePage, setAdFormSubmit };

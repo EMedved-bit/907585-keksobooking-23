@@ -1,8 +1,6 @@
-import { createAdverts } from './data.js';
 import { createAdvertElement } from './adverts.js';
 
 const adAddressInput = document.querySelector('#address');
-const adverts = createAdverts(5);
 
 const map = L.map('map-canvas');
 
@@ -60,10 +58,6 @@ const createMarker = (advert) => {
     );
 };
 
-adverts.forEach((advert) => {
-  createMarker(advert);
-});
-
 function getLatLngString(latLng) {
   return `${latLng.lat.toFixed(5)} ${latLng.lng.toFixed(5)}`;
 }
@@ -80,10 +74,12 @@ function resetMap () {
     lat: 35.6895,
     lng: 139.69171,
   }, 12);
+
+  adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 }
 
 mainPinMarker.on('moveend', () => {
   adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 });
 
-export { resetMap, map };
+export { resetMap, createMarker, map };
