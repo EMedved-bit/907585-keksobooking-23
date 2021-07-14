@@ -7,7 +7,7 @@ const mapForm = document.querySelector('.map__filters');
 const mapFormElements = mapForm.querySelectorAll('select');
 const mapFormFieldset = mapForm.querySelector('fieldset');
 const adAddressInput = adForm.querySelector('#address');
-const resetButton = document.querySelector('.ad-form__reset');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 function disablePage () {
   adForm.classList.add('ad-form--disabled');
@@ -139,7 +139,8 @@ function setAdFormSubmit(onSuccess, onFail) {
   });
 }
 
-resetButton.addEventListener('click', () => {
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault;
   adForm.reset();
   resetMap();
 });

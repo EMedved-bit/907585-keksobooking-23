@@ -58,6 +58,15 @@ const createMarker = (advert) => {
     );
 };
 
+function createMarkers(adverts) {
+  markerGroup.clearLayers();
+  adverts
+    .slice(0, 10)
+    .forEach((advert) => {
+      createMarker(advert);
+    });
+}
+
 function getLatLngString(latLng) {
   return `${latLng.lat.toFixed(5)} ${latLng.lng.toFixed(5)}`;
 }
@@ -82,4 +91,4 @@ mainPinMarker.on('moveend', () => {
   adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 });
 
-export { resetMap, createMarker, map };
+export { resetMap, createMarkers, map };
