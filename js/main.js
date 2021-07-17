@@ -1,7 +1,9 @@
 import { disablePage, activatePage, setAdFormSubmit } from './form.js';
-import { createMarker, map } from './map.js';
+import { map } from './map.js';
 import { showErrorPopup, showSuccessPopup } from './util.js';
 import { getData } from './api.js';
+import { renderMarkers } from './filters.js';
+import './form-images.js';
 
 disablePage();
 
@@ -14,17 +16,10 @@ map
     lng: 139.69171,
   }, 12);
 
-function createMarkers(adverts) {
-  adverts.forEach((advert) => {
-    createMarker(advert);
-  });
-}
-
 function dataFail() {
   document.querySelector('.error-message').classList.remove('hidden');
 }
 
-getData(createMarkers,dataFail);
+getData(renderMarkers, dataFail);
 
 setAdFormSubmit(showSuccessPopup, showErrorPopup);
-

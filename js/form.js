@@ -7,7 +7,9 @@ const mapForm = document.querySelector('.map__filters');
 const mapFormElements = mapForm.querySelectorAll('select');
 const mapFormFieldset = mapForm.querySelector('fieldset');
 const adAddressInput = adForm.querySelector('#address');
-const resetButton = document.querySelector('.ad-form__reset');
+const resetButton = adForm.querySelector('.ad-form__reset');
+const avatarPreview = document.querySelector('.ad-form-header__preview img');
+const housePhotoPreview = document.querySelector('.ad-form__photo');
 
 function disablePage () {
   adForm.classList.add('ad-form--disabled');
@@ -123,14 +125,20 @@ adAddressInput.addEventListener('keypress', (evt) => {
   evt.preventDefault();
 });
 
+function resetForm() {
+  adForm.reset();
+  resetMap();
+  avatarPreview.src = './img/muffin-grey.svg';
+  housePhotoPreview.innerHTML = '';
+}
+
 function setAdFormSubmit(onSuccess, onFail) {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
       () => {
-        adForm.reset();
-        resetMap();
+        resetForm();
         onSuccess();
       },
       () => onFail(),
@@ -139,9 +147,9 @@ function setAdFormSubmit(onSuccess, onFail) {
   });
 }
 
-resetButton.addEventListener('click', () => {
-  adForm.reset();
-  resetMap();
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault;
+  resetForm();
 });
 
 export { disablePage, activatePage, setAdFormSubmit };
