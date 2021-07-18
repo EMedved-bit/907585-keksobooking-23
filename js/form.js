@@ -1,5 +1,6 @@
 import { resetMap } from './map.js';
 import { sendData } from './api.js';
+import { resetFilters } from './filters.js';
 
 const adForm = document.querySelector('.ad-form');
 const formElements = adForm.querySelectorAll('fieldset');
@@ -10,20 +11,23 @@ const adAddressInput = adForm.querySelector('#address');
 const resetButton = adForm.querySelector('.ad-form__reset');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
 const housePhotoPreview = document.querySelector('.ad-form__photo');
-
-function disablePage () {
-  adForm.classList.add('ad-form--disabled');
-  mapForm.classList.add('map__filters--disabled');
-  mapFormFieldset.setAttribute('disabled', 'disabled');
-
-  formElements.forEach((element) => {
-    element.setAttribute('disabled', 'disabled');
-  });
-
-  mapFormElements.forEach((element) => {
-    element.setAttribute('disabled', 'disabled');
-  });
-}
+const addTitleInput = adForm.querySelector('#title');
+const houseTypeSelect = adForm.querySelector('#type');
+const housePriceInput = adForm.querySelector('#price');
+const roomsNumberSelect = adForm.querySelector('#room_number');
+const guestsNumberSelect = adForm.querySelector('#capacity');
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
+const PRICES = {
+  palace: '10000',
+  flat: '1000',
+  house: '5000',
+  bungalow: '0',
+  hotel: '3000',
+};
+const MAX_PRICE = 1000000;
+const MIN_NAME_LENGTH = 30;
+const MAX_NAME_LENGTH = 100;
 
 function activatePage () {
   adForm.classList.remove('ad-form--disabled');
@@ -39,10 +43,6 @@ function activatePage () {
   });
 }
 
-const addTitleInput = adForm.querySelector('#title');
-const MIN_NAME_LENGTH = 30;
-const MAX_NAME_LENGTH = 100;
-
 addTitleInput.addEventListener('input', () => {
   const valueLength = addTitleInput.value.length;
 
@@ -56,17 +56,6 @@ addTitleInput.addEventListener('input', () => {
 
   addTitleInput.reportValidity();
 });
-
-const houseTypeSelect = adForm.querySelector('#type');
-const housePriceInput = adForm.querySelector('#price');
-const PRICES = {
-  palace: '10000',
-  flat: '1000',
-  house: '5000',
-  bungalow: '0',
-  hotel: '3000',
-};
-const MAX_PRICE = 1000000;
 
 houseTypeSelect.addEventListener('change', (evt) => {
   housePriceInput.setAttribute('min', PRICES[evt.target.value]);
@@ -88,9 +77,6 @@ housePriceInput.addEventListener('input', () => {
   housePriceInput.reportValidity();
 });
 
-const roomsNumberSelect = adForm.querySelector('#room_number');
-const guestsNumberSelect = adForm.querySelector('#capacity');
-
 guestsNumberSelect.addEventListener('change', (evt) => {
   const value = Number(evt.target.value);
   const rooms = Number(roomsNumberSelect.value);
@@ -110,9 +96,6 @@ guestsNumberSelect.addEventListener('change', (evt) => {
   guestsNumberSelect.reportValidity();
 });
 
-const timeinSelect = adForm.querySelector('#timein');
-const timeoutSelect = adForm.querySelector('#timeout');
-
 timeinSelect.addEventListener('change', (evt) => {
   timeoutSelect.value = evt.target.value;
 });
@@ -127,6 +110,8 @@ adAddressInput.addEventListener('keypress', (evt) => {
 
 function resetForm() {
   adForm.reset();
+  mapForm.reset();
+  resetFilters();
   resetMap();
   avatarPreview.src = './img/muffin-grey.svg';
   housePhotoPreview.innerHTML = '';
@@ -152,4 +137,4 @@ resetButton.addEventListener('click', (evt) => {
   resetForm();
 });
 
-export { disablePage, activatePage, setAdFormSubmit };
+export { activatePage, setAdFormSubmit };

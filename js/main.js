@@ -1,11 +1,9 @@
-import { disablePage, activatePage, setAdFormSubmit } from './form.js';
+import { activatePage, setAdFormSubmit } from './form.js';
 import { map } from './map.js';
 import { showErrorPopup, showSuccessPopup } from './util.js';
 import { getData } from './api.js';
 import { renderMarkers } from './filters.js';
 import './form-images.js';
-
-disablePage();
 
 map
   .on('load', () => {

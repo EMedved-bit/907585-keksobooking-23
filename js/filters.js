@@ -1,8 +1,11 @@
 import { createMarkers } from './map.js';
 import { debounce } from './util.js';
 
-let allAdverts = [];
-
+const housingTypeSelect = document.querySelector('#housing-type');
+const housingPriceSelect = document.querySelector('#housing-price');
+const housingRoomsSelect = document.querySelector('#housing-rooms');
+const housingGuestsSelect = document.querySelector('#housing-guests');
+const featuresCheckbox = document.querySelectorAll('.map__checkbox');
 const filters = {
   type: 'any',
   price: 'any',
@@ -11,16 +14,12 @@ const filters = {
   features: [],
 };
 
+let allAdverts = [];
+
 function renderMarkers(adverts) {
   allAdverts = adverts;
   createMarkers(allAdverts);
 }
-
-const housingTypeSelect = document.querySelector('#housing-type');
-const housingPriceSelect = document.querySelector('#housing-price');
-const housingRoomsSelect = document.querySelector('#housing-rooms');
-const housingGuestsSelect = document.querySelector('#housing-guests');
-const featuresCheckbox = document.querySelectorAll('.map__checkbox');
 
 function getFilteredAdverts() {
   const filteredAdverts = allAdverts
@@ -114,4 +113,13 @@ featuresCheckbox.forEach((checkbox) => {
   });
 });
 
-export { renderMarkers };
+function resetFilters() {
+  filters.type = 'any';
+  filters.price = 'any';
+  filters.rooms = 'any';
+  filters.guests = 'any';
+  filters.features = [];
+  updateMarkers();
+}
+
+export { renderMarkers, resetFilters };

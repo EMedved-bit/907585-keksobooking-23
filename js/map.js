@@ -1,7 +1,6 @@
 import { createAdvertElement } from './adverts.js';
 
 const adAddressInput = document.querySelector('#address');
-
 const map = L.map('map-canvas');
 
 L.tileLayer(
