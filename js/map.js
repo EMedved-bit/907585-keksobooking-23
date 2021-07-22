@@ -1,5 +1,15 @@
 import { createAdvertElement } from './adverts.js';
 
+const MAIN_ICON_SIZE = [52, 52];
+const MAIN_ICON_ANCHOR = [26, 52];
+const ICON_SIZE = [40, 40];
+const ICON_ANCHOR = [20, 40];
+const MAP_COORDS_DEFAULT = {
+  lat: 35.6895,
+  lng: 139.69171,
+};
+const MAP_ZOOM_DEFAULT = 12;
+const MAX_ADVERTS = 10;
 const adAddressInput = document.querySelector('#address');
 const map = L.map('map-canvas');
 
@@ -12,15 +22,12 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: MAIN_ICON_SIZE,
+  iconAnchor: MAIN_ICON_ANCHOR,
 });
 
 const mainPinMarker = L.marker(
-  {
-    lat: 35.6895,
-    lng: 139.69171,
-  },
+  MAP_COORDS_DEFAULT,
   {
     draggable: true,
     icon: mainPinIcon,
@@ -34,8 +41,8 @@ const markerGroup = L.layerGroup().addTo(map);
 const createMarker = (advert) => {
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: ICON_SIZE,
+    iconAnchor: ICON_ANCHOR,
   });
 
   const marker = L.marker(
@@ -60,7 +67,7 @@ const createMarker = (advert) => {
 function createMarkers(adverts) {
   markerGroup.clearLayers();
   adverts
-    .slice(0, 10)
+    .slice(0, MAX_ADVERTS)
     .forEach((advert) => {
       createMarker(advert);
     });
@@ -73,15 +80,9 @@ function getLatLngString(latLng) {
 adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 
 function resetMap () {
-  mainPinMarker.setLatLng({
-    lat: 35.6895,
-    lng: 139.69171,
-  });
+  mainPinMarker.setLatLng(MAP_COORDS_DEFAULT);
 
-  map.setView({
-    lat: 35.6895,
-    lng: 139.69171,
-  }, 12);
+  map.setView(MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT);
 
   adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 }
@@ -90,4 +91,4 @@ mainPinMarker.on('moveend', () => {
   adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());
 });
 
-export { resetMap, createMarkers, map };
+export { resetMap, createMarkers, map, MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT };

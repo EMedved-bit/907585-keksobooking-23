@@ -1,6 +1,8 @@
 import { createMarkers } from './map.js';
 import { debounce } from './util.js';
 
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
 const housingTypeSelect = document.querySelector('#housing-type');
 const housingPriceSelect = document.querySelector('#housing-price');
 const housingRoomsSelect = document.querySelector('#housing-rooms');
@@ -36,14 +38,14 @@ function getFilteredAdverts() {
       }
 
       if (filters.price === 'low') {
-        return advert.offer.price < 10000;
+        return advert.offer.price < LOW_PRICE;
       }
 
       if (filters.price === 'high') {
-        return advert.offer.price > 50000;
+        return advert.offer.price > HIGH_PRICE;
       }
 
-      return advert.offer.price >= 10000 && advert.offer.price <= 50000;
+      return advert.offer.price >= LOW_PRICE && advert.offer.price <= HIGH_PRICE;
     })
     .filter((advert) => {
       if (filters.rooms === 'any') {

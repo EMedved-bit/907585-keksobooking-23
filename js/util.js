@@ -3,49 +3,59 @@ const successPopup = document.querySelector('.success');
 const errorPopup = document.querySelector('.error');
 const errorButton = errorPopup.querySelector('.error__button');
 
-function onEscKeydown(evt) {
+function onSuccessEscKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideSuccessPopup();
+  }
+}
+
+function onErrorEscKeydown(evt){
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
     hideErrorPopup();
   }
 }
 
-function onDocumentClick(evt) {
+function onSuccessDocumentClick(evt) {
   evt.preventDefault();
   hideSuccessPopup();
+}
+
+function onErrorDocumentClick(evt){
+  evt.preventDefault();
   hideErrorPopup();
 }
 
-function clickErrorButton(evt) {
+function onErrorButtonClick(evt) {
   evt.preventDefault();
   hideErrorPopup();
 }
 
 function showSuccessPopup() {
   successPopup.classList.remove('hidden');
-  document.addEventListener('keydown', onEscKeydown);
-  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onSuccessEscKeydown);
+  document.addEventListener('click', onSuccessDocumentClick);
 }
 
 function hideSuccessPopup() {
   successPopup.classList.add('hidden');
-  document.removeEventListener('keydown', onEscKeydown);
-  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onSuccessEscKeydown);
+  document.removeEventListener('click', onSuccessDocumentClick);
 }
 
 function showErrorPopup() {
   errorPopup.classList.remove('hidden');
-  errorButton.addEventListener('click', clickErrorButton);
-  document.addEventListener('keydown', onEscKeydown);
-  document.addEventListener('click', onDocumentClick);
+  errorButton.addEventListener('click', onErrorButtonClick);
+  document.addEventListener('keydown', onErrorEscKeydown);
+  document.addEventListener('click', onErrorDocumentClick);
 }
 
 function hideErrorPopup() {
   errorPopup.classList.add('hidden');
-  errorButton.removeEventListener('click', clickErrorButton);
-  document.removeEventListener('keydown', onEscKeydown);
-  document.removeEventListener('click', onDocumentClick);
+  errorButton.removeEventListener('click', onErrorButtonClick);
+  document.removeEventListener('keydown', onErrorEscKeydown);
+  document.removeEventListener('click', onErrorDocumentClick);
 }
 
 function debounce (callback, timeoutDelay = 500) {

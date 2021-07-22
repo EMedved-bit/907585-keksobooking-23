@@ -2,6 +2,17 @@ import { resetMap } from './map.js';
 import { sendData } from './api.js';
 import { resetFilters } from './filters.js';
 
+const PRICES = {
+  palace: '10000',
+  flat: '1000',
+  house: '5000',
+  bungalow: '0',
+  hotel: '3000',
+};
+const MAX_PRICE = 1000000;
+const MIN_NAME_LENGTH = 30;
+const MAX_NAME_LENGTH = 100;
+const DEFAULT_AVATAR = './img/muffin-grey.svg';
 const adForm = document.querySelector('.ad-form');
 const formElements = adForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
@@ -18,16 +29,6 @@ const roomsNumberSelect = adForm.querySelector('#room_number');
 const guestsNumberSelect = adForm.querySelector('#capacity');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
-const PRICES = {
-  palace: '10000',
-  flat: '1000',
-  house: '5000',
-  bungalow: '0',
-  hotel: '3000',
-};
-const MAX_PRICE = 1000000;
-const MIN_NAME_LENGTH = 30;
-const MAX_NAME_LENGTH = 100;
 
 function activatePage () {
   adForm.classList.remove('ad-form--disabled');
@@ -113,7 +114,7 @@ function resetForm() {
   mapForm.reset();
   resetFilters();
   resetMap();
-  avatarPreview.src = './img/muffin-grey.svg';
+  avatarPreview.src = DEFAULT_AVATAR;
   housePhotoPreview.innerHTML = '';
 }
 

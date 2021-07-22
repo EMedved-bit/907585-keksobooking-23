@@ -1,23 +1,23 @@
 import { activatePage, setAdFormSubmit } from './form.js';
-import { map } from './map.js';
+import { map, MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT } from './map.js';
 import { showErrorPopup, showSuccessPopup } from './util.js';
 import { getData } from './api.js';
 import { renderMarkers } from './filters.js';
 import './form-images.js';
 
-map
-  .on('load', () => {
-    activatePage();
-  })
-  .setView({
-    lat: 35.6895,
-    lng: 139.69171,
-  }, 12);
+function onDataSuccess(adverts) {
+  renderMarkers(adverts);
+  activatePage();
+}
 
-function dataFail() {
+function onDataFail() {
   document.querySelector('.error-message').classList.remove('hidden');
 }
 
-getData(renderMarkers, dataFail);
+map
+  .on('load', () => {
+    getData(onDataSuccess, onDataFail);
+  })
+  .setView(MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT);
 
 setAdFormSubmit(showSuccessPopup, showErrorPopup);

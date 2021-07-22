@@ -1,7 +1,3 @@
-const advertsTemplate = document.querySelector('#card')
-  .content
-  .querySelector('.popup');
-
 const TYPES = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -9,6 +5,9 @@ const TYPES = {
   bungalow: 'Бунгало',
   hotel: 'Отель',
 };
+const advertsTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.popup');
 
 function changeValue (element, value, isAdd = true) {
   if (value && isAdd) {
