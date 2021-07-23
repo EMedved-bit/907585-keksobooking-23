@@ -1,4 +1,4 @@
-import { activatePage, setAdFormSubmit } from './form.js';
+import { activateAdForm, activateMapForm, setAdFormSubmit } from './form.js';
 import { map, MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT } from './map.js';
 import { showErrorPopup, showSuccessPopup } from './util.js';
 import { getData } from './api.js';
@@ -7,7 +7,7 @@ import './form-images.js';
 
 function onDataSuccess(adverts) {
   renderMarkers(adverts);
-  activatePage();
+  activateMapForm();
 }
 
 function onDataFail() {
@@ -16,6 +16,7 @@ function onDataFail() {
 
 map
   .on('load', () => {
+    activateAdForm();
     getData(onDataSuccess, onDataFail);
   })
   .setView(MAP_COORDS_DEFAULT, MAP_ZOOM_DEFAULT);

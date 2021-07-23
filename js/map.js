@@ -10,18 +10,23 @@ const MAP_COORDS_DEFAULT = {
 };
 const MAP_ZOOM_DEFAULT = 12;
 const MAX_ADVERTS = 10;
+const FLOAT_NUMBER = 5;
+const LAYER_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const MAIN_ICON_URL = '../img/main-pin.svg';
+const ICON_URL = '../img/pin.svg';
 const adAddressInput = document.querySelector('#address');
 const map = L.map('map-canvas');
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  LAYER_TEMPLATE,
   {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: ATTRIBUTION,
   },
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: MAIN_ICON_URL,
   iconSize: MAIN_ICON_SIZE,
   iconAnchor: MAIN_ICON_ANCHOR,
 });
@@ -40,7 +45,7 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (advert) => {
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: ICON_URL,
     iconSize: ICON_SIZE,
     iconAnchor: ICON_ANCHOR,
   });
@@ -74,7 +79,7 @@ function createMarkers(adverts) {
 }
 
 function getLatLngString(latLng) {
-  return `${latLng.lat.toFixed(5)} ${latLng.lng.toFixed(5)}`;
+  return `${latLng.lat.toFixed(FLOAT_NUMBER)} ${latLng.lng.toFixed(FLOAT_NUMBER)}`;
 }
 
 adAddressInput.value = getLatLngString(mainPinMarker.getLatLng());

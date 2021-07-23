@@ -30,15 +30,16 @@ const guestsNumberSelect = adForm.querySelector('#capacity');
 const timeinSelect = adForm.querySelector('#timein');
 const timeoutSelect = adForm.querySelector('#timeout');
 
-function activatePage () {
+function activateAdForm() {
   adForm.classList.remove('ad-form--disabled');
-  mapForm.classList.remove('map__filters--disabled');
-  mapFormFieldset.removeAttribute('disabled');
-
   formElements.forEach((element) => {
     element.removeAttribute('disabled');
   });
+}
 
+function activateMapForm() {
+  mapForm.classList.remove('map__filters--disabled');
+  mapFormFieldset.removeAttribute('disabled');
   mapFormElements.forEach((element) => {
     element.removeAttribute('disabled');
   });
@@ -138,4 +139,4 @@ resetButton.addEventListener('click', (evt) => {
   resetForm();
 });
 
-export { activatePage, setAdFormSubmit };
+export { activateAdForm, activateMapForm, setAdFormSubmit };
